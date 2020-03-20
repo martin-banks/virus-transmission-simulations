@@ -1,14 +1,21 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import Styled from 'styled-components'
+import Logo from './logo-header'
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
+const Header = Styled.header`
+  margin: 0;
+  margin-bottom: 3rem;
+  padding: 0;
+  background: none;
+  h1 {
+    color: red;
+  }
+`
+
+const PageHeader = ({ siteTitle }) => (
+  <Header>
     <div
       style={{
         margin: `0 auto`,
@@ -16,27 +23,19 @@ const Header = ({ siteTitle }) => (
         padding: `1.45rem 1.0875rem`,
       }}
     >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
+      <Link to="https://martinbanks.com.au" >
+        <Logo />
+      </Link>
     </div>
-  </header>
+  </Header>
 )
 
-Header.propTypes = {
+PageHeader.propTypes = {
   siteTitle: PropTypes.string,
 }
 
-Header.defaultProps = {
+PageHeader.defaultProps = {
   siteTitle: ``,
 }
 
-export default Header
+export default PageHeader

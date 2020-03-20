@@ -1,0 +1,118 @@
+@import url("https://use.typekit.net/onc3gku.css");
+
+
+html,
+body,
+div,
+article,
+section,
+span {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-size: 8px;
+  z-index: -1;
+}
+
+body {
+  box-sizing: border-box;
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+}
+
+article {
+  opacity: 0;
+}
+
+h1 {
+  font-size: 6rem;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+  font-family: dharma-gothic-e, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.5rem;
+}
+h2 {
+  font-size: 4rem;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+  font-family: dharma-gothic-e, sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  letter-spacing: 0.5rem;
+}
+h3 {
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+h4 {
+  font-size: 2.5rem;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+h5 {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+h6 {
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 2rem;
+}
+li {
+  font-size: 2rem;
+}
+a {
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+  font-size: 2rem;
+}
+
+path {
+  transition: fill 200ms;
+}
+
+pre {
+  font-size: 2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: #111111;
+    /* background-image: linear-gradient(150deg, rgba(255,0,255, 0.05), rgba(0, 255,255, 0.05)); */
+    color: white
+  }
+  a {
+    color: white;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html, body {
+    background: #eeeeee;
+    /* background-image: linear-gradient(150deg, rgba(162, 0, 255, 0.05), rgba(3, 218, 207, 0.05)); */
+    color: black !important;
+  }
+  a {
+    color: black;
+  }
+}
+
