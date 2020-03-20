@@ -20,7 +20,6 @@ const Wrapper = Styled.div`
   position: relative;
   width: 100%;
   max-width: 150px;
-  margin-bottom: 6rem;
 `
 const ImageWrapper = Styled.div`
   position: relative;
