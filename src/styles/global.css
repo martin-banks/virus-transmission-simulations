@@ -1,12 +1,7 @@
 @import url("https://use.typekit.net/onc3gku.css");
 
 
-html,
-body,
-div,
-article,
-section,
-span {
+* {
   box-sizing: border-box;
 }
 
@@ -18,11 +13,14 @@ html, body {
 }
 
 body {
-  box-sizing: border-box;
-  width: 100vw;
-  min-height: 100vh;
-  height: auto;
+  /* min-height: 100vh; */
+  /* height: auto; */
 }
+
+/* main {
+  position: relative;
+  box-sizing: border-box;
+} */
 
 article {
   opacity: 0;
