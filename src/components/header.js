@@ -6,14 +6,17 @@ import Logo from './logo-header'
 import Github from './icons/github'
 
 const Header = Styled.header`
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
   box-sizing: border-box;
   margin: 0;
-  margin-bottom: 3rem;
+  /* margin-bottom: 3rem; */
   padding: 0;
   padding-top: 2rem;
-  padding-left: 2rem;
+  padding-left: 4rem;
   background: none;
-  display: flex;
   width: 100%;
   justify-content: flex-start;
 `
