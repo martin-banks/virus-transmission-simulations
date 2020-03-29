@@ -5,7 +5,7 @@ import Styled from 'styled-components'
 import Layout from "../components/layout"
 // import Image from "../components/image"
 import SEO from "../components/seo"
-import Simulator from '../components/simulator'
+import Simulator from '../components/simulation-p5'
 
 const Wrapper = Styled.div`
   display: grid;
@@ -40,8 +40,10 @@ const IndexPage = () => (
         <h1>Virus transmission simulator</h1>
       </Sidebar>
       <MainDisplay>
-        <SimulatorContainer>
-          <Simulator />
+        <SimulatorContainer id="simulatorContainer">
+          <Simulator
+            population="100"
+          />
         </SimulatorContainer>
       </MainDisplay>
     </Wrapper>
