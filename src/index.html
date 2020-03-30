@@ -8,49 +8,87 @@
 </head>
 <body>
 
-  <pre class="dump"></pre>
-
-  <div class="controls">
-    <h2>Simulation settings</h2>
-
-    <div id="population" class="setting">
-      <label for="population">Population: <span>--</span></label>
-      <input data-type="population" type="range" min="100" max="500" />
+  <header>
+    <div class="headerElement">
+      <div class="logo">
+        <a href="https://martinbanks.com.au">
+          <div class="logo__wrapper">
+            <div class ="logo__box">
+              <div class="logo__corner tl"></div>
+              <div class="logo__corner tr"></div>
+              <div class="logo__corner br"></div>
+              <div class="logo__corner bl"></div>
+            </div>
+            <div class="logo__imageWrapper">
+              <img src="./files/images/signature.1.0.0-black.png" alt="Martin Banks signature logo">
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
+    <div class="headerEndElement">
+      <div class="forkMe">
 
-    <div id="distancing" class="setting">
-      <label for="distancing">Social distancing: <span>--</span> percent</label>
-      <input data-type="distancing" type="range" min="0" max="90" />
+      </div>
     </div>
+  </header>
 
-    <div id="timeToCure" class="setting">
-      <label for="timeToCure">Time to cure: <span>--</span> units</label>
-      <input data-type="timeToCure" type="range" min="2" max="10" />
+
+
+  <div class="mainStage">
+    <div class="left">
+      <pre class="dump"></pre>
+
+      <div class="controls">
+        <h2>Simulation settings</h2>
+
+        <div class="chartContainer">
+          <div class="chart"></div>
+          <!-- <hr class="expectedDead" /> -->
+        </div>
+
+        <div id="population" class="setting">
+          <label for="population">Population: <span>--</span></label>
+          <input data-type="population" type="range" min="100" max="800" />
+        </div>
+
+        <div id="distancing" class="setting">
+          <label for="distancing">Social distancing: <span>--</span> percent</label>
+          <input data-type="distancing" type="range" min="0" max="90" />
+        </div>
+
+        <div id="timeToCure" class="setting">
+          <label for="timeToCure">Time to cure: <span>--</span> units</label>
+          <input data-type="timeToCure" type="range" min="2" max="15" />
+        </div>
+
+        <div id="mortality" class="setting">
+          <label for="mortality">Mortality rate: <span>--</span> percent</label>
+          <input data-type="mortality" type="range" min="0" max="100" />
+        </div>
+
+        <!-- <div id="infectionLength" class="setting">
+          <label for="infectionLength">Time infection lasts for: <span>--</span> seconds</label>
+          <input data-type="infectionLength" type="range" min="3" max="8" />
+        </div> -->
+      
+        <!-- <div id="simulationLength" class="setting">
+          <label for="simulationLength">Simulation length: <span>--</span> seconds</label>
+          <input data-type="simulationLength" type="range" min="5" max="30" />
+        </div> -->
+
+
+        <button id="start">Start new simulation</button>
+        <button id="stop">End simulation</button>
     </div>
-
-    <div id="mortality" class="setting">
-      <label for="mortality">Mortality rate: <span>--</span> percent</label>
-      <input data-type="mortality" type="range" min="0" max="100" />
-    </div>
-
-    <!-- <div id="infectionLength" class="setting">
-      <label for="infectionLength">Time infection lasts for: <span>--</span> seconds</label>
-      <input data-type="infectionLength" type="range" min="3" max="8" />
-    </div> -->
-
-    <!-- <div id="simulationLength" class="setting">
-      <label for="simulationLength">Simulation length: <span>--</span> seconds</label>
-      <input data-type="simulationLength" type="range" min="5" max="30" />
-    </div> -->
-
-    <button id="start">Start new simulation</button>
-    <button id="stop">End simulation</button>
   </div>
 
-  <div class="chartContainer">
-    <div class="chart"></div>
-    <!-- <hr class="expectedDead" /> -->
-  </div>
+    <div class="right">
+      <div id="particleSystem"></div>
+    </div>
+
+
+
 
   <script src="./index.js"></script>
 </body>

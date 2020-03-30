@@ -1,20 +1,40 @@
 // ? Configurable options
-let population = 500
+let population = 300
 let distancing = 0 // (pct of population that does not move)
 let timeToCure = 8 * 1000 // (ms)
 let mortality = 0.2 // (pct)
 
-const speed = 2
+const speed = 2.5
 // const timeToKill = 8 * 1000 // (ms)
 const simulationLength = 30 * 1000 // (ms)
 const sessionTick = 500 // How often does the chart update (ms)
 
-// ? System/session variables
-const canvasSize = { // TODO Set from designated area
-  w: Math.min(1000, window.innerWidth) - 60, // 400,
-  h: (Math.min(1000, window.innerWidth) - 60) / 2, // 400,
+
+// ? UI elments
+const dump = document.querySelector('pre.dump')
+const chartContainer = document.querySelector('div.chart')
+const maxDeadLine = document.querySelector('.chartContainer hr.expectedDead')
+const startButton = document.querySelector('button#start')
+const stopButton = document.querySelector('button#stop')
+const particleSystem = document.querySelector('#particleSystem')
+
+const inputs = {
+  distancing: document.querySelector('#distancing input'),
+  population: document.querySelector('#population input'),
+  timeToCure: document.querySelector('#timeToCure input'),
+  mortality: document.querySelector('#mortality input'),
 }
-const diameter = Math.round(Math.min(canvasSize.w, canvasSize.h) / 100)
+
+// ? System/session variables
+// const canvasSize = { // TODO Set from designated area
+//   w: Math.min(1000, window.innerWidth) - 60, // 400,
+//   h: (Math.min(1000, window.innerWidth) - 60) / 2, // 400,
+// }
+const canvasSize = { // TODO Set from designated area
+  w: particleSystem.offsetWidth, // 400,
+  h: particleSystem.offsetHeight,
+}
+const diameter = Math.round(Math.min(canvasSize.w, canvasSize.h) / 80)
 let people = []
 const totals = {
   normal: population,
@@ -24,20 +44,23 @@ const totals = {
 }
 let running = false
 let sessionTime = 0
+const collisions = true
 
-// ? UI elments
-const dump = document.querySelector('pre.dump')
-const chartContainer = document.querySelector('div.chart')
-const maxDeadLine = document.querySelector('.chartContainer hr.expectedDead')
-const startButton = document.querySelector('button#start')
-const stopButton = document.querySelector('button#stop')
 
-const inputs = {
-  distancing: document.querySelector('#distancing input'),
-  population: document.querySelector('#population input'),
-  timeToCure: document.querySelector('#timeToCure input'),
-  mortality: document.querySelector('#mortality input'),
-}
+let windowResizeTimer = null
+// let systemCanvas = null
+
+window.addEventListener('resize', () => {
+  if (windowResizeTimer) {
+    clearInterval(windowResizeTimer)
+  }
+  windowResizeTimer = setTimeout(() => {
+    canvasSize.w = particleSystem.offsetWidth
+    canvasSize.h = particleSystem.offsetHeight
+    resizeCanvas(canvasSize.w, canvasSize.h)
+  }, 300)
+})
+
 
 
 function setDistancing () {
@@ -163,32 +186,34 @@ class Person {
       let minDist = (people[i].diameter / 2) + (this.diameter / 2)
 
       if (distance < minDist) {
-        // Handle update directions
-        if (this.velocity.x > 0) {
-          if (this.position.x > people[i].position.x) {
-            people[i].velocity.x *= -1
+        if (collisions) {
+          // Handle update directions
+          if (this.velocity.x > 0) {
+            if (this.position.x > people[i].position.x) {
+              people[i].velocity.x *= -1
+            } else {
+              this.velocity.x *= -1
+            }
           } else {
-            this.velocity.x *= -1
+            if (this.position.x > people[i].position.x) {
+              this.velocity.x *= -1
+            } else {
+              people[i].velocity.x *= -1
+            }
           }
-        } else {
-          if (this.position.x > people[i].position.x) {
-            this.velocity.x *= -1
+  
+          if (this.velocity.y > 0) {
+            if (this.position.y > people[i].position.y) {
+              people[i].velocity.y *= -1
+            } else {
+              this.velocity.y *= -1
+            }
           } else {
-            people[i].velocity.x *= -1
-          }
-        }
-
-        if (this.velocity.y > 0) {
-          if (this.position.y > people[i].position.y) {
-            people[i].velocity.y *= -1
-          } else {
-            this.velocity.y *= -1
-          }
-        } else {
-          if (this.position.y > people[i].position.y) {
-            this.velocity.y *= -1
-          } else {
-            people[i].velocity.y *= -1
+            if (this.position.y > people[i].position.y) {
+              this.velocity.y *= -1
+            } else {
+              people[i].velocity.y *= -1
+            }
           }
         }
 
@@ -242,7 +267,7 @@ class Person {
     } else if (this.status === 'cured') {
       fill(0, 255, 0)
     } else if (this.status === 'dead') {
-      fill(50)
+      fill(200, 200, 200, 50)
     } else {
       fill(255)
     }
@@ -269,6 +294,7 @@ function createSimulation () {
 
 function setup () {
   createCanvas(canvasSize.w, canvasSize.h)
+    .parent('particleSystem')
   // createSimulation()
 }
 
@@ -296,7 +322,8 @@ updateDump()
 
 function draw () {
   if (running) {
-    background(0)
+    // background(0)
+    clear()
     people.forEach(function (person, i) {
         if (person.moving && person.status !== 'dead'){
           person.move()
@@ -328,7 +355,8 @@ function reset () {
   sessionTime = 0
   Object.keys(totals).forEach(k => totals[k] = 0)
   totals.normal = population
-  background(0)
+  // background(0)
+  clear()
 }
 
 function start () {
