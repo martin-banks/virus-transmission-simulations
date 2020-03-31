@@ -5,7 +5,7 @@ let timeToCure = 4 * 1000 // (ms)
 let mortality = 0.1 // (pct)
 
 
-const speed = 2.5
+const speed = 2
 // const timeToKill = 8 * 1000 // (ms)
 const simulationLength = 20 * 1000 // (ms)
 const sessionTick = 500 // How often does the chart update (ms)
@@ -36,14 +36,21 @@ const statElements = {
 
 // ? System/session variables
 function canvasHeight (w) {
-  return w * 0.75 
+  return w * 0.75
 }
 
 const canvasSize = { // TODO Set from designated area
   w: particleSystem.offsetWidth, // 400,
   h: canvasHeight(particleSystem.offsetWidth),
 }
-let diameter = Math.round(Math.min(canvasSize.w, canvasSize.h) / 80)
+let diamter = 0
+
+function updateDiameter () {
+  diameter = canvasSize.w / 100
+}
+
+updateDiameter()
+
 let people = []
 const totals = {
   normal: population,
@@ -79,7 +86,7 @@ window.addEventListener('resize', () => {
       canvasSize.w = particleSystem.offsetWidth
       canvasSize.h = canvasHeight(particleSystem.offsetWidth)
       resizeCanvas(canvasSize.w, canvasSize.h)
-      diameter = Math.round(Math.min(canvasSize.w, canvasSize.h) / 80)
+      updateDiameter()
       canvas.style.display = 'block'
       stop()
       clear()
@@ -182,6 +189,7 @@ class Person {
       y: random(-1, 1) * speed,
     }
     this.order = 1
+    this.minDist = this.diameter / 2
   }
 
   move () {
@@ -216,9 +224,8 @@ class Person {
       let distanceX = people[i].position.x - this.position.x
       let distanceY = people[i].position.y - this.position.y
       let distance = sqrt((distanceX * distanceX) + (distanceY * distanceY))
-      let minDist = (people[i].diameter / 2) + (this.diameter / 2)
 
-      if (distance < minDist) {
+      if (distance < this.minDist) {
         if (collisions) {
           // Handle update directions
           if (this.velocity.x > 0) {
@@ -305,7 +312,7 @@ class Person {
     } else if (this.status === 'dead') {
       fill(200, 200, 200, 50)
     } else {
-      fill(100, 200, 250)
+      fill(70, 130, 180)
     }
     ellipse(this.position.x, this.position.y, this.diameter, this.diameter)
     noStroke()
@@ -400,7 +407,8 @@ function reset () {
   chart = []
   sessionTime = 0
   Object.keys(totals).forEach(k => totals[k] = 0)
-  totals.normal = population
+  totals.normal = population - 1
+  totals.infected = 1
   // background(0)
   clear()
 }

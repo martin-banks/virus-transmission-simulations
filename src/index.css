@@ -456,11 +456,15 @@ section.signoff {
 }
 
 .stat__item .circle {
+  box-sizing: content-box;
+  position: relative;
   width: 100%;
   height: 0;
+  left: 50%;
+  transform: translateX(-50%);
   padding-bottom: 100%;
   border-radius: 300px;
-  border: solid 1px;
+  border: solid 1rem rgba(255, 255, 255, 0.5);
 }
 
 .stat__item--normal .circle {
@@ -486,6 +490,7 @@ section.signoff {
   font-family: dharma-gothic-e, sans-serif;
   font-size: 4rem;
   font-weight: 600;
+  color: white;
 }
 
 h6.stat__label {
