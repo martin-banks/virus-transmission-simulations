@@ -7,7 +7,7 @@ let mortality = 0.1 // (pct)
 
 const speed = 2.5
 // const timeToKill = 8 * 1000 // (ms)
-const simulationLength = 10 * 1000 // (ms)
+const simulationLength = 20 * 1000 // (ms)
 const sessionTick = 500 // How often does the chart update (ms)
 
 
