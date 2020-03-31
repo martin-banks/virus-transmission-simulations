@@ -12,7 +12,7 @@ const sessionTick = 500 // How often does the chart update (ms)
 
 
 // ? UI elments
-const dump = document.querySelector('pre.dump')
+// const dump = document.querySelector('pre.dump')
 const chartContainer = document.querySelector('div.chart')
 const maxDeadLine = document.querySelector('.chartContainer hr.expectedDead')
 const startButton = document.querySelector('button#start')
@@ -341,25 +341,25 @@ function setup () {
   // createSimulation()
 }
 
-function updateDump () {
-  dump.innerText = JSON.stringify({
-    settings: {
-      population,
-      distancing,
-      timeToCure,
-      mortality,
-    },
-    stats: {
-      normal: totals.normal,
-      infected: totals.infected,
-      cured: totals.cured,
-      dead: totals.dead,
-    },
-    sessionTime,
-  }, null, 2)
-}
+// function updateDump () {
+//   dump.innerText = JSON.stringify({
+//     settings: {
+//       population,
+//       distancing,
+//       timeToCure,
+//       mortality,
+//     },
+//     stats: {
+//       normal: totals.normal,
+//       infected: totals.infected,
+//       cured: totals.cured,
+//       dead: totals.dead,
+//     },
+//     sessionTime,
+//   }, null, 2)
+// }
 
-updateDump()
+// updateDump()
 
 
 
@@ -375,7 +375,7 @@ function draw () {
         person.statusUpdate()
         person.display(person)
       })
-    updateDump()
+    // updateDump()
   } else {
     stop()
   }
