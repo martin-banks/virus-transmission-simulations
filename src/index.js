@@ -1,12 +1,13 @@
 // ? Configurable options
-let population = 300
+let population = 500
 let distancing = 0 // (pct of population that does not move)
-let timeToCure = 8 * 1000 // (ms)
-let mortality = 0.2 // (pct)
+let timeToCure = 4 * 1000 // (ms)
+let mortality = 0.1 // (pct)
+
 
 const speed = 2.5
 // const timeToKill = 8 * 1000 // (ms)
-const simulationLength = 30 * 1000 // (ms)
+const simulationLength = 10 * 1000 // (ms)
 const sessionTick = 500 // How often does the chart update (ms)
 
 
@@ -17,6 +18,7 @@ const maxDeadLine = document.querySelector('.chartContainer hr.expectedDead')
 const startButton = document.querySelector('button#start')
 const stopButton = document.querySelector('button#stop')
 const particleSystem = document.querySelector('#particleSystem')
+const settings = document.querySelector('.settings')
 
 const inputs = {
   distancing: document.querySelector('#distancing input'),
@@ -25,16 +27,23 @@ const inputs = {
   mortality: document.querySelector('#mortality input'),
 }
 
+const statElements = {
+  normal: document.querySelector('.stat__item--normal p'),
+  infected: document.querySelector('.stat__item--infected p'),
+  cured: document.querySelector('.stat__item--cured p'),
+  dead: document.querySelector('.stat__item--dead p'),
+}
+
 // ? System/session variables
-// const canvasSize = { // TODO Set from designated area
-//   w: Math.min(1000, window.innerWidth) - 60, // 400,
-//   h: (Math.min(1000, window.innerWidth) - 60) / 2, // 400,
-// }
+function canvasHeight (w) {
+  return w * 0.75 
+}
+
 const canvasSize = { // TODO Set from designated area
   w: particleSystem.offsetWidth, // 400,
-  h: particleSystem.offsetHeight,
+  h: canvasHeight(particleSystem.offsetWidth),
 }
-const diameter = Math.round(Math.min(canvasSize.w, canvasSize.h) / 80)
+let diameter = Math.round(Math.min(canvasSize.w, canvasSize.h) / 80)
 let people = []
 const totals = {
   normal: population,
@@ -46,22 +55,42 @@ let running = false
 let sessionTime = 0
 const collisions = true
 
-
 let windowResizeTimer = null
 // let systemCanvas = null
+
+let showConfig = true
+let showChart = false
+
+
+
+// let theme = typeof window !== 'undefined'
+//   ? (window.matchMedia('(prefers-color-scheme: light)').matches
+//     ? 'dark' : 'dark')
+//       : 'dark'
 
 window.addEventListener('resize', () => {
   if (windowResizeTimer) {
     clearInterval(windowResizeTimer)
   }
   windowResizeTimer = setTimeout(() => {
-    canvasSize.w = particleSystem.offsetWidth
-    canvasSize.h = particleSystem.offsetHeight
-    resizeCanvas(canvasSize.w, canvasSize.h)
-  }, 300)
+    const canvas = document.querySelector('canvas')
+    canvas.style.display = 'none'
+    // setTimeout(() => {
+      canvasSize.w = particleSystem.offsetWidth
+      canvasSize.h = canvasHeight(particleSystem.offsetWidth)
+      resizeCanvas(canvasSize.w, canvasSize.h)
+      diameter = Math.round(Math.min(canvasSize.w, canvasSize.h) / 80)
+      canvas.style.display = 'block'
+      stop()
+      clear()
+  }, 500)
 })
 
-
+function updateStats () {
+  Object.keys(statElements).forEach(key => {
+    statElements[key].innerText = totals[key]
+  })
+}
 
 function setDistancing () {
   if (this && this.value) {
@@ -85,7 +114,7 @@ function setCure () {
   if (this && this.value) {
     timeToCure = parseInt(this.value, 10) * 1000
   } else {
-    inputs.timeToCure.value = timeToCure
+    inputs.timeToCure.value = timeToCure / 1000
   }
   inputs.timeToCure.parentElement.querySelector('span').innerText = Math.round(timeToCure / 1000)
 }
@@ -94,7 +123,7 @@ function setMortality () {
   if (this && this.value) {
     mortality = parseInt(this.value, 10) / 100
   } else {
-    inputs.mortality.value = mortality
+    inputs.mortality.value = mortality * 100
   }
   inputs.mortality.parentElement.querySelector('span').innerText = Math.round(mortality * 100)
 }
@@ -174,6 +203,10 @@ class Person {
     }
   }
 
+  setDiameter (d) {
+    this.diameter = d
+  }
+
   intersect () {
     if (this.status === 'dead') return
     for (let i = this.id + 1; i < population; i++) {
@@ -230,6 +263,7 @@ class Person {
           this.infectedTime = new Date().getTime()
           totals.normal--
           totals.infected++
+          updateStats()
           return
 
         } else if (this.status === 'infected' && people[i].status === 'normal') {
@@ -239,6 +273,7 @@ class Person {
           people[i].infectedTime = new Date().getTime()
           totals.normal--
           totals.infected++
+          updateStats()
           return
         }
       }
@@ -257,6 +292,7 @@ class Person {
         this.infected = false
         totals.infected--
         totals[newStatus]++
+        updateStats()
       }
     }
   }
@@ -269,7 +305,7 @@ class Person {
     } else if (this.status === 'dead') {
       fill(200, 200, 200, 50)
     } else {
-      fill(255)
+      fill(100, 200, 250)
     }
     ellipse(this.position.x, this.position.y, this.diameter, this.diameter)
     noStroke()
@@ -338,11 +374,21 @@ function draw () {
   }
 }
 
+function showControls () {
+  startButton.style.display = 'block'
+  stopButton.style.display = 'none'
+  settings.style.display = 'block'
+}
+function hideControls () {
+  startButton.style.display = 'none'
+  stopButton.style.display = 'block'
+  settings.style.display = 'none'
+}
+
 function stop () {
   running = false
   noLoop()
-  startButton.style.display = 'block'
-  stopButton.style.display = 'none'
+  showControls()
   // ? Clears canvas to grey
   // setTimeout(() => {
   //   background(100)
@@ -361,12 +407,11 @@ function reset () {
 
 function start () {
   reset()
+  hideControls()
   createSimulation()
   running = true
   loop()
   window.requestAnimationFrame(updateChart)
-  startButton.style.display = 'none'
-  stopButton.style.display = 'block'
 }
 
 startButton.addEventListener('click', start)

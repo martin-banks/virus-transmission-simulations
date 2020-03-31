@@ -3,6 +3,7 @@
 
 * {
   box-sizing: border-box;
+  text-rendering: optimizeLegibility;
 }
 
 html, body {
@@ -15,6 +16,7 @@ html, body {
 body {
   /* min-height: 100vh; */
   /* height: auto; */
+  padding: 3rem;
 }
 
 /* main {
@@ -27,16 +29,18 @@ article {
 }
 
 h1 {
-  font-size: 6rem;
+  text-rendering: geometricPrecision;
+  font-size: 8rem;
   margin: 0;
   padding: 0;
   margin-bottom: 1rem;
   font-family: dharma-gothic-e, sans-serif;
   font-weight: 400;
   font-style: normal;
-  letter-spacing: 0.5rem;
+  letter-spacing: 2px;
 }
 h2 {
+  text-rendering: geometricPrecision;
   font-size: 4rem;
   margin: 0;
   padding: 0;
@@ -44,9 +48,11 @@ h2 {
   font-family: dharma-gothic-e, sans-serif;
   font-weight: 100;
   font-style: normal;
-  letter-spacing: 0.5rem;
+  letter-spacing: 2px;
 }
 h3 {
+  text-rendering: geometricPrecision;
+  font-family: dharma-gothic-e, sans-serif;
   font-size: 3rem;
   margin: 0;
   padding: 0;
@@ -65,7 +71,9 @@ h5 {
   margin-bottom: 1rem;
 }
 h6 {
-  font-size: 1.5rem;
+  font-family: dharma-gothic-e, sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
   margin: 0;
   padding: 0;
   margin-bottom: 1rem;
@@ -73,6 +81,8 @@ h6 {
 
 p {
   font-size: 2rem;
+  line-height: 3rem;
+  font-weight: 300
 }
 li {
   font-size: 2rem;
@@ -94,7 +104,7 @@ pre {
 
 @media (prefers-color-scheme: dark) {
   html, body {
-    background: #000;
+    background: #0c0c0c;
     /* background-image: linear-gradient(150deg, rgba(255,0,255, 0.05), rgba(0, 255,255, 0.05)); */
     color: white
   }
@@ -142,3 +152,8 @@ pre {
   color: black;
 } */
 
+
+
+section {
+  margin-bottom: 4rem;
+}

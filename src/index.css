@@ -3,20 +3,19 @@
 
 
 html, body {
-  margin: 0;
-  padding: 0;
+  /* margin: 0; */
+  /* padding: 0; */
   /* display: flex; */
   justify-content: center;
   align-items: flex-start;
   /* width: 100vw; */
-  height: 100vh;
+  min-height: 100vh;
   font-family: sans-serif;
-  font-size: 16px;
 }
 body {
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
+  /* padding: 0; */
+  /* margin: 0; */
+  /* overflow: hidden; */
   /* margin-bottom: 30px; */
 }
 * {
@@ -34,11 +33,19 @@ header {
   margin: 0;
   padding: 0;
   padding-top: 2rem;
-  padding-left: 4rem;
-  background: rgba(0,0, 0, 0.5);
-  /* width: 100%; */
+  padding-left: 6rem;
+  /* background: rgba(0,0,0, 0.5); */
   justify-content: flex-start;
-
+}
+@media (prefers-color-scheme: dark) {
+  header {
+    /* background: rgba(0,0,0, 0.5) */
+  }
+}
+@media (prefers-color-scheme: light) {
+  header {
+    /* background: rgba(255,255,255, 0.5) */
+  }
 }
 
 .headerElement {
@@ -85,26 +92,27 @@ header {
   position: absolute;
   border: none;
   border-radius: 0px;
+  border-color: darkred !important;
   box-sizing: content-box;
   width: 0.3rem;
   height: 0.3rem;
-  padding: 0.2rem;
+  padding: 0.3rem;
   transform: translate(-50%, -50%);
   opacity: 1;
 }
 .logo__corner.tl {
   left: 0;
   top: 0;
-  border-top: solid 1px;
+  border-top: solid 2px;
   border-right: none;
   border-bottom: none;
-  border-left: solid 1px;
+  border-left: solid 2px;
 }
 .logo__corner.tr {
   left: 100%;
   top: 0;
-  border-top: solid 1px;
-  border-right: solid 1px;
+  border-top: solid 2px;
+  border-right: solid 2px;
   border-bottom: none;
   border-left: none;
 }
@@ -112,8 +120,8 @@ header {
   left: 100%;
   top: 100%;
   border-top: none;
-  border-right: solid 1px;
-  border-bottom: solid 1px;
+  border-right: solid 2px;
+  border-bottom: solid 2px;
   border-left: none;
 }
 .logo__corner.bl {
@@ -121,8 +129,8 @@ header {
   top: 100%;
   border-top: none;
   border-right: none;
-  border-bottom: solid 1px;
-  border-left: solid 1px;
+  border-bottom: solid 2px;
+  border-left: solid 2px;
 }
 .logo__imageWrapper {
   position: relative;
@@ -140,54 +148,123 @@ header {
 }
 
 @media (prefers-color-scheme: dark) {
-  .logo__corner {
-    border-color: darkred !important;
-  }
   .logo__imageWrapper {
     background-image: url(./files/images/signature.1.0.0-white.png);
   }
 }
 @media (prefers-color-scheme: light) {
-  .logo__corner {
-    border-color: tomato !important;
-  }
+
   .logo__imageWrapper {
     background-image: url(./files/images/signature.1.0.0-black.png);
   }
 }
 
 
+section {
+  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+}
+section.title {
+  display: block;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4rem;
+  padding-top: 20rem;
+  padding-bottom: 4rem;
+}
 
-.mainStage {
-  display: grid;
-  min-height: 100vh;
+section.title h1 {
+  text-align: center;
+}
+section.title p {
+  text-align: center;
+}
+
+
+
+section.mainStage {
+  /* display: grid; */
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 2000px;
+  margin: 0 auto;
+  /* min-height: 100vh; */
   /* grid-template-columns: 300px 1fr; */
-  grid-template-columns: minmax(100px, 600px) 1fr;
+  /* grid-template-columns: minmax(100px, 400px) 1fr minmax(100px, 400px); */
+  /* gap: 3rem; */
 }
 .left {
   /* outline: solid 1px pink; */
-  padding-top: 10rem;
-  padding: 10rem 2rem;
-  overflow: auto;
-  height: 100vh;
+  /* padding-top: 10rem; */
+  /* padding: 10rem 2rem; */
+  /* overflow: auto; */
+  /* height: 100vh; */
+  /* background: rgba(255,255,255, 0.5) */
+  flex: 1 1 0;
+  min-width: 250px;
+  width: 20%;
+  max-width: 350px;
+  padding-right: 3rem;
+  margin-bottom: 3rem;
+}
+.middle {
+  display: block;
+  flex: 1 1 0;
+  min-width: 250px;
+  width: 50%;
+  margin-bottom: 3rem;
 }
 .right {
   /* border: solid 1px lime; */
-  height: 100vh;
-  overflow: hidden;
+  /* height: 100vh; */
   position: relative;
+  flex: 1 1 0;
+  min-width: 250px;
+  width: 20%;
+  max-width: 350px;
+  padding-left: 3rem;
+  margin-bottom: 3rem;
 }
 
+/* @media (prefers-color-scheme: dark) {
+  .left {
+    background: rgba(0,0,0, 0.5);
+  }
+}
+@media (prefers-color-scheme: light) {
+  .left {
+    background: rgba(255,255,255, 0.5);
+  }
+} */
+
 #particleSystem {
-  position: absolute;
+  /* position: fixed; */
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   /* margin: 0 auto; */
   margin: 0;
   padding: 0;
-  /* background: darkslategrey; */
+  background: black;
+  border: solid 1px;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+@media (prefers-color-scheme: dark) {
+  #particleSystem {
+    background: black;
+    border-color: rgba(255,255,255, 0.15);
+    box-shadow: 0 2px 24px -12px rgba(0,0,0, 1);
+  }
+}
+@media (prefers-color-scheme: light) {
+  #particleSystem {
+    background: white;
+    border-color: rgba(0,0,0, 0.1);
+    box-shadow: 0 2px 24px -12px rgba(0,0,0, 0.4);
+  }
 }
 
 
@@ -195,7 +272,11 @@ header {
 
 
 canvas {
+  /* position: absolute; */
   display: block;
+  top: 0;
+  left: 0;
+  /* width: 100%; */
 }
 
 label, pre, code, button {
@@ -238,7 +319,8 @@ pre, code {
   position: relative;
   width: 100%;
   max-width: 800px;
-  outline: solid 1px white
+  outline: solid 1px white;
+  margin-bottom: 3rem;
 }
 .chartContainer hr.expectedDead {
   display: none;
@@ -342,4 +424,70 @@ button {
 
 button#stop {
   display: none;
+  background: darkred;
+  color: white;
+  border-color: tomato
+}
+
+section.signoff {
+  display: block;
+  text-align: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  padding: 3rem 0;
+}
+
+
+.stat__container {
+  display: flex;
+}
+
+.stat__item {
+  position: relative;
+  flex: 1 1 0;
+}
+
+.stat__value {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+.stat__item .circle {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 300px;
+  border: solid 1px;
+}
+
+.stat__item--normal .circle {
+  background: steelblue;
+}
+.stat__item--infected .circle {
+  background: tomato;
+}
+.stat__item--cured .circle {
+  background: seagreen;
+}
+.stat__item--dead .circle {
+  background: black;
+}
+
+.stat__item p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  margin: 0;
+  font-family: dharma-gothic-e, sans-serif;
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+h6.stat__label {
+  text-align: center
 }
