@@ -1,148 +1,148 @@
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>P5 particles</title>
-  <script src="./p5.min.js"></script>
-  <link rel="stylesheet" href="./index.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="A simple simulation exploring the concepts of different factors affecting the spread of a virus through a population">
+    <meta name="keywords" content="website design,web design, website development, web development, HTML,CSS,JavaScript,P5.js, virus simulation, virus transmission, infection spread, simulation, graphics">
+    <meta name="author" content="Martin Banks">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virus transmission simulation</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div id="app">
 
-  <header>
-    <div class="headerElement">
-      <div class="logo">
-        <a href="https://martinbanks.com.au">
-          <div class="logo__wrapper">
-            <div class ="logo__box">
-              <div class="logo__corner tl"></div>
-              <div class="logo__corner tr"></div>
-              <div class="logo__corner br"></div>
-              <div class="logo__corner bl"></div>
+      <header>
+        <div class="headerElement">
+          <div class="logo">
+            <a href="https://martinbanks.com.au">
+              <div class="logo__wrapper">
+                <div class ="logo__box">
+                  <div class="logo__corner tl"></div>
+                  <div class="logo__corner tr"></div>
+                  <div class="logo__corner br"></div>
+                  <div class="logo__corner bl"></div>
+                </div>
+                <div class="logo__imageWrapper">
+                  <img src="./files/images/signature.1.0.0-black.png" alt="Martin Banks signature logo">
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="headerEndElement">
+          <div class="forkMe">
+
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="title">
+          <h1>Virus transmission simulator</h1>
+
+          <p>We all know that coming into contact with someone or something carrying a virus has a risk that we can become infected too. But how can we understand that on a larger scale?</p>
+
+          <p>In this simulation I want to visualise how a virus can spread through a population and how different factors can alter the rate of growth.</p>
+
+          <p><i>It does not use any data from real virus transmissions and is not inteded as a guide to chart or predict current world events.</i></p>
+        </section>
+        <section class="mainStage">
+          <div class="left">
+            <h2>Outcome</h2>
+            <div class="chartContainer">
+              <div class="chart"></div>
+              <!-- <hr class="expectedDead" /> -->
             </div>
-            <div class="logo__imageWrapper">
-              <img src="./files/images/signature.1.0.0-black.png" alt="Martin Banks signature logo">
+            <div class="stat__container">
+              <div class="stat__item stat__item--normal">
+                <div class="stat__value">
+                  <div class="circle"></div>
+                  <p>---</p>
+                </div>
+                <h6 class="stat__label">Uninfected</h6>
+              </div>
+              <div class="stat__item stat__item--infected">
+                <div class="stat__value">
+                  <div class="circle"></div>
+                  <p>---</p>
+                </div>
+                <h6 class="stat__label">Infected</h6>
+              </div>
+              <div class="stat__item stat__item--cured">
+                <div class="stat__value">
+                  <div class="circle"></div>
+                  <p>---</p>
+                </div>
+                <h6 class="stat__label">Cured</h6>
+              </div>
+              <div class="stat__item stat__item--dead">
+                <div class="stat__value">
+                  <div class="circle"></div>
+                  <p>---</p>
+                </div>
+                <h6 class="stat__label">Dead</h6>
+              </div>
+
+            </div>
+            <!-- <pre class="dump"></pre> -->
+          </div>
+
+          <div class="middle">
+            <div id="particleSystem"></div>
+          </div>
+
+          <div class="right">
+            <div class="controls">
+              <h2>Settings</h2>
+
+              <div class="settings">
+                <div id="population" class="setting">
+                  <label for="population">Population: <span>--</span></label>
+                  <input data-type="population" type="range" min="100" max="800" />
+                </div>
+                <div id="distancing" class="setting">
+                  <label for="distancing">Social distancing: <span>--</span> percent</label>
+                  <input data-type="distancing" type="range" min="0" max="90" />
+                </div>
+                <div id="timeToCure" class="setting">
+                  <label for="timeToCure">Time to cure: <span>--</span> units</label>
+                  <input data-type="timeToCure" type="range" min="2" max="15" />
+                </div>
+                <div id="mortality" class="setting">
+                  <label for="mortality">Mortality rate: <span>--</span> percent</label>
+                  <input data-type="mortality" type="range" min="0" max="100" />
+                </div>
+              </div>
+              <!-- <div id="infectionLength" class="setting">
+                <label for="infectionLength">Time infection lasts for: <span>--</span> seconds</label>
+                <input data-type="infectionLength" type="range" min="3" max="8" />
+              </div> -->
+              <!-- <div id="simulationLength" class="setting">
+                <label for="simulationLength">Simulation length: <span>--</span> seconds</label>
+                <input data-type="simulationLength" type="range" min="5" max="30" />
+              </div> -->
+              <button id="start">Start new simulation</button>
+              <button id="stop">End simulation</button>
             </div>
           </div>
-        </a>
-      </div>
-    </div>
-    <div class="headerEndElement">
-      <div class="forkMe">
-
-      </div>
-    </div>
-  </header>
-
-  
-  <section class="title">
-    <h1>Virus simulation simulator</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut dolorem, ab totam laborum enim corrupti obcaecati exercitationem tenetur. Soluta tempora amet maxime mollitia qui labore cumque, modi sunt dolorem est.</p>
-  </section>
-  
-  <section class="mainStage">
-    <div class="left">
-      <h2>Outcome</h2>
-      <div class="chartContainer">
-        <div class="chart"></div>
-        <!-- <hr class="expectedDead" /> -->
-      </div>
-      <div class="stat__container">
-
-        <div class="stat__item stat__item--normal">
-          <div class="stat__value">
-            <div class="circle"></div>
-            <p>---</p>
-          </div>
-          <h6 class="stat__label">Uninfected</h6>
-        </div>
-        <div class="stat__item stat__item--infected">
-          <div class="stat__value">
-            <div class="circle"></div>
-            <p>---</p>
-          </div>
-          <h6 class="stat__label">Infected</h6>
-        </div>
-        <div class="stat__item stat__item--cured">
-          <div class="stat__value">
-            <div class="circle"></div>
-            <p>---</p>
-          </div>
-          <h6 class="stat__label">Cured</h6>
-        </div>
-        <div class="stat__item stat__item--dead">
-          <div class="stat__value">
-            <div class="circle"></div>
-            <p>---</p>
-          </div>
-          <h6 class="stat__label">Dead</h6>
-        </div>
+        </section>
+        <!-- <section class="signoff">
+          <h3>Disclaimer</h3>
+          <p>This project does not make use of any real-world data for any particular virus. It's intent is only to create a graphical representation for some core ideas of viral transmission.</p>
+        </section> -->
+      </main>
 
 
-      </div>
-      <!-- <pre class="dump"></pre> -->
+      <footer>
+        <p id="copyright">© Martin Banks <span id="published">2020</span></p>
+      </footer>
+
     </div>
 
 
+    <script src="./p5.min.js"></script>
+    <script src="./index.js"></script>
 
-
-    <div class="middle">
-      <div id="particleSystem"></div>
-    </div>
-
-
-    <div class="right">
-      <div class="controls">
-        <h2>Settings</h2>
-
-        <div class="settings">
-          <div id="population" class="setting">
-            <label for="population">Population: <span>--</span></label>
-            <input data-type="population" type="range" min="100" max="800" />
-          </div>
-  
-          <div id="distancing" class="setting">
-            <label for="distancing">Social distancing: <span>--</span> percent</label>
-            <input data-type="distancing" type="range" min="0" max="90" />
-          </div>
-  
-          <div id="timeToCure" class="setting">
-            <label for="timeToCure">Time to cure: <span>--</span> units</label>
-            <input data-type="timeToCure" type="range" min="2" max="15" />
-          </div>
-  
-          <div id="mortality" class="setting">
-            <label for="mortality">Mortality rate: <span>--</span> percent</label>
-            <input data-type="mortality" type="range" min="0" max="100" />
-          </div>
-        </div>
-
-        <!-- <div id="infectionLength" class="setting">
-          <label for="infectionLength">Time infection lasts for: <span>--</span> seconds</label>
-          <input data-type="infectionLength" type="range" min="3" max="8" />
-        </div> -->
-      
-        <!-- <div id="simulationLength" class="setting">
-          <label for="simulationLength">Simulation length: <span>--</span> seconds</label>
-          <input data-type="simulationLength" type="range" min="5" max="30" />
-        </div> -->
-
-
-        <button id="start">Start new simulation</button>
-        <button id="stop">End simulation</button>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="signoff">
-    <h3>Disclaimer</h3>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum nostrum perferendis illo beatae numquam provident ipsum repellendus magnam deleniti quis ut iure ex eum ad illum eaque, dignissimos neque dicta.</p>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum nostrum perferendis illo beatae numquam provident ipsum repellendus magnam deleniti quis ut iure ex eum ad illum eaque, dignissimos neque dicta.</p>
-  </section>
-
-
-
-
-  <script src="./index.js"></script>
-</body>
+  </body>
 </html>

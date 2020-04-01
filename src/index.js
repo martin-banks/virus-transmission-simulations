@@ -1,13 +1,13 @@
 // ? Configurable options
 let population = 500
 let distancing = 0 // (pct of population that does not move)
-let timeToCure = 4 * 1000 // (ms)
+let timeToCure = 6 * 1000 // (ms)
 let mortality = 0.1 // (pct)
 
 
-const speed = 2
+const speed = 1.5
 // const timeToKill = 8 * 1000 // (ms)
-const simulationLength = 20 * 1000 // (ms)
+const simulationLength = 30 * 1000 // (ms)
 const sessionTick = 500 // How often does the chart update (ms)
 
 
@@ -323,10 +323,10 @@ function createSimulation () {
   clear()
   for (let i = 0; i < population; i++) {
     people.push(new Person({
-      x: random(width - (diameter * 2)) + (diameter),
-      y: random(height - (diameter * 2)) + (diameter),
+      x: i < 1 ? canvasSize.w / 2 : random(width - (diameter * 2)) + (diameter),
+      y: i < 1 ? canvasSize.h / 2 : random(height - (diameter * 2)) + (diameter),
       index: i,
-      diameter, // : diameter + (10 * i),
+      diameter: i < 1 ? 20 : diameter, // : diameter + (10 * i),
       infected: i < 1,
       status: i < 1 ? 'infected' : 'normal',
       moving: distancing > 0 ? (i < population - (population * distancing)) : true,
