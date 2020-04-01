@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    
+    "start": "http-server -s -o",
+    "build": "babel src -d dist"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/martin-banks/virus-transmission-simulations/issues"
   },
-  "homepage": "https://github.com/martin-banks/virus-transmission-simulations#readme"
+  "homepage": "https://github.com/martin-banks/virus-transmission-simulations#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0"
+  }
 }
