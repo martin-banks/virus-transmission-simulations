@@ -326,7 +326,7 @@ function createSimulation () {
       x: i < 1 ? canvasSize.w / 2 : random(width - (diameter * 2)) + (diameter),
       y: i < 1 ? canvasSize.h / 2 : random(height - (diameter * 2)) + (diameter),
       index: i,
-      diameter: i < 1 ? 20 : diameter, // : diameter + (10 * i),
+      diameter, // : diameter + (10 * i),
       infected: i < 1,
       status: i < 1 ? 'infected' : 'normal',
       moving: distancing > 0 ? (i < population - (population * distancing)) : true,
